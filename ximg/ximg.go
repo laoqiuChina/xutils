@@ -9,7 +9,7 @@ import (
 )
 
 type ImgServer struct {
-	GetPath string
+	SvPath string
 }
 
 var regexpUrlParse *regexp.Regexp
@@ -25,7 +25,7 @@ func (m *ImgServer) Init() bool {
 		return false
 	}
 	// 创建 RGBA 画板大小 - 用于找不到图片时用
-	noImg = image.NewRGBA(image.Rect(0, 0, 400, 400))
+	noImg = image.NewRGBA(image.Rect(0, 0, 1, 1))
 	return true
 }
 
@@ -39,21 +39,25 @@ func (m *ImgServer) Start() bool {
 
 	// 缓存模式
 	// 登录
-	if m.GetPath == "" {
-		glog.Error("[ImgServer]GetPath not set")
+	if m.SvPath == "" {
+		glog.Error("[ImgServer]SvPath not set")
 		return false
 	}
-	s.BindHandler(m.GetPath, m.ServeHTTP)
+	s.BindHandler(m.SvPath, m.ImgHandle)
+	s.BindHandler(m.SvPath+"/:url", m.ImgHandle)
+	s.BindHandler(m.SvPath+"/test", m.Test)
 	return true
 }
 
-func (m ImgServer) ServeHTTP(r *ghttp.Request) {
+func (m ImgServer) ImgHandle(r *ghttp.Request) {
 	if r.Method == "GET" {
-		m.Get(r.Response.ResponseWriter.ResponseWriter, r.Request)
+		m.Get(r)
+		r.Exit()
 		return
 	}
 	if r.Method == "POST" {
-		m.Post(r.Response.ResponseWriter.ResponseWriter, r.Request)
+		m.Post(r)
+		r.Exit()
 		return
 	}
 }

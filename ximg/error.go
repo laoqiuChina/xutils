@@ -43,12 +43,10 @@ func GetStatusText() map[int]string {
 
 //------------------------------------------------------------------
 
-func showMain() []byte {
-
+func showMain() string {
 	show := `<html>
   <div>Goimg 轻量级的图片服务器</div>
   <div><a href="/test">开始吧</a></div>
 </html>`
-
-	return []byte(show)
+	return show
 }

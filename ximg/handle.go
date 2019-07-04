@@ -2,20 +2,20 @@ package ximg
 
 import (
 	"bufio"
+	"github.com/gogf/gf/g/net/ghttp"
 	"github.com/nfnt/resize"
 	"image"
 	"image/jpeg"
 	"image/png"
 	"io"
 	"log"
-	"net/http"
 	"os"
 	"strconv"
 	"strings"
 )
 
 // 裁剪图像
-func CutImage(w http.ResponseWriter, path string, width, height int) {
+func CutImage(w *ghttp.Response, path string, width, height int) {
 	// 没有宽高，就是在加载原图像
 	if width == 0 && height == 0 {
 		file, err := os.Open(path)
@@ -24,7 +24,7 @@ func CutImage(w http.ResponseWriter, path string, width, height int) {
 			log.Println("file, err = os.Open(path)", err)
 			return
 		}
-		_, _ = io.Copy(w, file)
+		_, _ = io.Copy(w.ResponseWriter.ResponseWriter, file)
 		file.Close()
 		return
 	}
@@ -40,7 +40,7 @@ func CutImage(w http.ResponseWriter, path string, width, height int) {
 	// 判断是否存在裁剪图像
 	file, err := os.Open(CutPath)
 	if err == nil {
-		_, _ = io.Copy(w, file)
+		_, _ = io.Copy(w.ResponseWriter.ResponseWriter, file)
 		file.Close()
 		return
 	}
@@ -74,7 +74,7 @@ func CutImage(w http.ResponseWriter, path string, width, height int) {
 		// 设置文件的偏移量 - 因为文件被 image.Decode 后文件的偏移量到尾部
 		_, _ = file.Seek(0, 0)
 		// 向浏览器输出
-		_, _ = io.Copy(w, file)
+		_, _ = io.Copy(w.ResponseWriter.ResponseWriter, file)
 		return
 	}
 	// 进行裁剪
@@ -91,19 +91,19 @@ func CutImage(w http.ResponseWriter, path string, width, height int) {
 		// 保存裁剪的图片
 		_ = jpeg.Encode(out, reImg, nil)
 		// 向浏览器输出
-		_ = jpeg.Encode(w, reImg, nil)
+		_ = jpeg.Encode(w.ResponseWriter.ResponseWriter, reImg, nil)
 	} else if imgType == PNG {
 		// 保存裁剪的图片
 		_ = png.Encode(out, reImg)
 		// 向浏览器输出
-		_ = png.Encode(w, reImg)
+		_ = png.Encode(w.ResponseWriter.ResponseWriter, reImg)
 	}
 }
 
 // 用于找不到图片时用
-func NoImage(r http.ResponseWriter) {
+func NoImage(r *ghttp.Response) {
 	// 图片流方式输出
 	r.Header().Set("Content-Type", "image/png")
 	// 进行图片的编码
-	_ = png.Encode(r, noImg)
+	_ = png.Encode(r.ResponseWriter.ResponseWriter, noImg)
 }
