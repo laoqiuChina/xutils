@@ -196,3 +196,50 @@ func (m ImgServer) Test(r *ghttp.Request) {
 </html>`
 	_, _ = r.Response.ResponseWriter.ResponseWriter.Write([]byte(html))
 }
+
+// 获取图片信息
+func (m ImgServer) Info(r *ghttp.Request) {
+	// 响应返回
+	res := new(UpdateResponse)
+	// 获取要图片id
+	imgid := r.GetString("imgid")
+	// 获取裁剪后图像的宽度、高度
+	width := StringToInt(r.FormValue("w"))  // 宽度
+	height := StringToInt(r.FormValue("h")) // 高度
+	// 组合文件完整路径
+	filePath := UrlParse(imgid)
+	if filePath == "" {
+		res.Code = StatusUrlNotFound
+		res.Msg = StatusText(StatusUrlNotFound)
+		_ = r.Response.WriteJson(res)
+		return
+	}
+	if width != 0 || height != 0 {
+		filePath = fmt.Sprintf("%s_%d_%d", filePath, width, height)
+	}
+	fimg, err := os.Open(filePath)
+	if err != nil {
+		res.Code = StatusImgNotFound
+		res.Msg = StatusText(StatusImgNotFound)
+		_ = r.Response.WriteJson(res)
+		return
+	}
+	defer fimg.Close()
+	bufimg := bufio.NewReader(fimg)
+	_, imgtype, err := image.Decode(bufimg)
+	if err != nil {
+		res.Code = StatusImgNotFound
+		res.Msg = StatusText(StatusImgNotFound)
+		_ = r.Response.WriteJson(res)
+		return
+	}
+	finfo, _ := fimg.Stat()
+	res.Success = true
+	res.Code = StatusOK
+	res.Msg = StatusText(StatusOK)
+	res.Data.ImgId = imgid
+	res.Data.Mime = imgtype
+	res.Data.Size = finfo.Size()
+	_ = r.Response.WriteJson(res)
+
+}

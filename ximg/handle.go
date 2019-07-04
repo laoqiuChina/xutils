@@ -3,11 +3,12 @@ package ximg
 import (
 	"bufio"
 	"github.com/gogf/gf/g/net/ghttp"
+	"github.com/gogf/gf/g/util/gconv"
 	"github.com/nfnt/resize"
 	"image"
 	"image/jpeg"
 	"image/png"
-	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"strconv"
@@ -18,14 +19,13 @@ import (
 func CutImage(w *ghttp.Response, path string, width, height int) {
 	// 没有宽高，就是在加载原图像
 	if width == 0 && height == 0 {
-		file, err := os.Open(path)
+		b, err := ioutil.ReadFile(path)
 		if err != nil {
 			NoImage(w)
 			log.Println("file, err = os.Open(path)", err)
 			return
 		}
-		_, _ = io.Copy(w.ResponseWriter.ResponseWriter, file)
-		file.Close()
+		w.Write(b)
 		return
 	}
 	// 裁剪图像 --------------------------------------
@@ -38,14 +38,13 @@ func CutImage(w *ghttp.Response, path string, width, height int) {
 	str.WriteString(strconv.Itoa(height))
 	CutPath := str.String()
 	// 判断是否存在裁剪图像
-	file, err := os.Open(CutPath)
+	b, err := ioutil.ReadFile(CutPath)
 	if err == nil {
-		_, _ = io.Copy(w.ResponseWriter.ResponseWriter, file)
-		file.Close()
+		w.Write(b)
 		return
 	}
 	// 原图像
-	file, err = os.Open(path)
+	file, err := os.Open(path)
 	if err != nil {
 		NoImage(w)
 		log.Println("file, err = os.Open(path)", err)
@@ -71,10 +70,17 @@ func CutImage(w *ghttp.Response, path string, width, height int) {
 	}
 	// gif 图就不处理了
 	if imgType == GIF || (width == RWidth && height == RHeight) {
+		b, err := ioutil.ReadFile(CutPath)
+		if err != nil {
+			NoImage(w)
+			log.Println("gif, err = os.Open(path)", err)
+			return
+		}
+		w.Write(b)
 		// 设置文件的偏移量 - 因为文件被 image.Decode 后文件的偏移量到尾部
-		_, _ = file.Seek(0, 0)
+		//_, _ = file.Seek(0, 0)
 		// 向浏览器输出
-		_, _ = io.Copy(w.ResponseWriter.ResponseWriter, file)
+		//_, _ = io.Copy(w.ResponseWriter.ResponseWriter, file)
 		return
 	}
 	// 进行裁剪
@@ -91,12 +97,26 @@ func CutImage(w *ghttp.Response, path string, width, height int) {
 		// 保存裁剪的图片
 		_ = jpeg.Encode(out, reImg, nil)
 		// 向浏览器输出
-		_ = jpeg.Encode(w.ResponseWriter.ResponseWriter, reImg, nil)
+		//_ = jpeg.Encode(w.ResponseWriter.ResponseWriter, reImg, nil)
+		b, err := ioutil.ReadFile(CutPath)
+		if err != nil {
+			NoImage(w)
+			log.Println("gif, err = os.Open(path)", err)
+			return
+		}
+		w.Write(b)
 	} else if imgType == PNG {
 		// 保存裁剪的图片
 		_ = png.Encode(out, reImg)
+		b, err := ioutil.ReadFile(CutPath)
+		if err != nil {
+			NoImage(w)
+			log.Println("gif, err = os.Open(path)", err)
+			return
+		}
+		w.Write(b)
 		// 向浏览器输出
-		_ = png.Encode(w.ResponseWriter.ResponseWriter, reImg)
+		//_ = png.Encode(w.ResponseWriter.ResponseWriter, reImg)
 	}
 }
 
@@ -105,5 +125,6 @@ func NoImage(r *ghttp.Response) {
 	// 图片流方式输出
 	r.Header().Set("Content-Type", "image/png")
 	// 进行图片的编码
-	_ = png.Encode(r.ResponseWriter.ResponseWriter, noImg)
+	//_ = png.Encode(r.ResponseWriter.ResponseWriter, noImg)
+	r.Write(gconv.Bytes(noImg))
 }

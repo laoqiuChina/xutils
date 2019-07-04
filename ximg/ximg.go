@@ -46,6 +46,7 @@ func (m *ImgServer) Start() bool {
 	s.BindHandler(m.SvPath, m.ImgHandle)
 	s.BindHandler(m.SvPath+"/:url", m.ImgHandle)
 	s.BindHandler(m.SvPath+"/test", m.Test)
+	s.BindHandler(m.SvPath+"/info/:imgid", m.Info)
 	return true
 }
 
