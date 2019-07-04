@@ -137,7 +137,7 @@ func ConfigFile(file string) string {
 }
 
 func findRoot() string {
-	// TEAROOT变量
+	// XROOT变量
 	root := strings.TrimSpace(os.Getenv("XROOT"))
 	if len(root) > 0 {
 		abs, err := filepath.Abs(root)
