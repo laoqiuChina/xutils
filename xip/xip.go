@@ -41,12 +41,17 @@ var once sync.Once
 func Get(ip string) (ipLocation IPLocation) {
 	return GetInstance().Get(ip)
 }
-
 func GetInstance() *IpSearch {
+	return GetInstanceForPath("")
+}
+func GetInstanceForPath(path string) *IpSearch {
 	once.Do(func() {
 		instance = &IpSearch{}
 		var err error
-		instance, err = LoadDat("./data/ultimate.dat")
+		if path == "" {
+			path = "./data/ultimate.dat"
+		}
+		instance, err = LoadDat(path)
 		if err != nil {
 			log.Fatal("the IP Dat loaded failed!", err)
 		}

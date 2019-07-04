@@ -6,6 +6,6 @@ import (
 )
 
 func TestXIP(t *testing.T) {
-	ipFinder := GetInstance()
+	ipFinder := GetInstanceForPath("E:/go/gopath/src/xutils/data/ultimate.dat")
 	g.Dump(ipFinder.Get("114.114.114.114"))
 }
