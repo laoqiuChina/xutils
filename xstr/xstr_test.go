@@ -1,6 +1,13 @@
 package xstr
 
-import "testing"
+import (
+	"testing"
+	"xutils/ximg"
+)
+
+func TestUrlParse(t *testing.T) {
+	t.Log(ximg.UrlParse(MD5("chenyang")))
+}
 
 func TestGetAppPath(t *testing.T) {
 	t.Log(GetAppPath())
