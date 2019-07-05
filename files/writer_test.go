@@ -6,7 +6,7 @@ import (
 )
 
 func TestWriter_Write(t *testing.T) {
-	tmpFile := NewFile(xcode.TmpFile("test.txt"))
+	tmpFile := NewFile(xcode.TmpFile("te1st.txt"))
 	writer, err := tmpFile.Writer()
 	if err != nil {
 		t.Fatal(err)
