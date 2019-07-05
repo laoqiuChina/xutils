@@ -1,8 +1,7 @@
 package files
 
 import (
-	"os"
-	"syscall"
+	_ "syscall"
 	"testing"
 	"xutils/xcode"
 )
@@ -16,8 +15,8 @@ func TestFile_Stat(t *testing.T) {
 	t.Logf("%#v", stat)
 	t.Log(stat.ModTime)
 
-	info, _ := os.Stat(xcode.TmpFile("test.txt"))
-	t.Logf("%#v", info.Sys().(*syscall.Stat_t).Atimespec)
+	//_, _ := os.Stat(xcode.TmpFile("test.txt"))
+	//t.Logf("%#v", info.Sys().(*syscall.Stat_t).Atimespec)
 }
 
 func TestFile_IsFile(t *testing.T) {

@@ -14,33 +14,33 @@ func NewAppender(path string) (*Appender, error) {
 	return NewFile(path).Appender()
 }
 
-func (this *Appender) AppendString(s string) (n int, err error) {
-	return this.file.WriteString(s)
+func (a *Appender) AppendString(s string) (n int, err error) {
+	return a.file.WriteString(s)
 }
 
-func (this *Appender) Append(b []byte) (n int, err error) {
-	return this.file.Write(b)
+func (a *Appender) Append(b []byte) (n int, err error) {
+	return a.file.Write(b)
 }
 
-func (this *Appender) Truncate(size ...int64) error {
+func (a *Appender) Truncate(size ...int64) error {
 	if len(size) > 0 {
-		return this.file.Truncate(size[0])
+		return a.file.Truncate(size[0])
 	}
-	return this.file.Truncate(0)
+	return a.file.Truncate(0)
 }
 
-func (this *Appender) Sync() error {
-	return this.file.Sync()
+func (a *Appender) Sync() error {
+	return a.file.Sync()
 }
 
-func (this *Appender) Lock() {
-	this.locker.Lock()
+func (a *Appender) Lock() {
+	a.locker.Lock()
 }
 
-func (this *Appender) Unlock() {
-	this.locker.Unlock()
+func (a *Appender) Unlock() {
+	a.locker.Unlock()
 }
 
-func (this *Appender) Close() error {
-	return this.file.Close()
+func (a *Appender) Close() error {
+	return a.file.Close()
 }
