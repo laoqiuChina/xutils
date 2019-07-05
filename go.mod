@@ -1,4 +1,4 @@
-module git.qxtv1.com/st52/xutils
+module github.com/laoqiuChina/xutils
 
 go 1.12
 

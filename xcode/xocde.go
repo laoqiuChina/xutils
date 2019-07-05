@@ -1,8 +1,8 @@
 package xcode
 
 import (
-	stringutil "git.qxtv1.com/st52/xutils/utils/string"
 	"github.com/gogf/gf/g/os/glog"
+	stringutil "github.com/laoqiuChina/xutils/utils/string"
 	"os"
 	"path/filepath"
 	"runtime"

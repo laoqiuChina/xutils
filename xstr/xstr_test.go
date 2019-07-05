@@ -1,7 +1,7 @@
 package xstr
 
 import (
-	"git.qxtv1.com/st52/xutils/ximg"
+	"github.com/laoqiuChina/xutils/ximg"
 	"testing"
 )
 

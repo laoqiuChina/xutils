@@ -1,8 +1,8 @@
 package processes
 
 import (
-	"git.qxtv1.com/st52/xutils/utils/string"
-	"git.qxtv1.com/st52/xutils/xcode"
+	"github.com/laoqiuChina/xutils/utils/string"
+	"github.com/laoqiuChina/xutils/xcode"
 	"io/ioutil"
 	"os"
 )

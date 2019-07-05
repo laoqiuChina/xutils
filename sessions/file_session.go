@@ -2,11 +2,11 @@ package sessions
 
 import (
 	"fmt"
-	"git.qxtv1.com/st52/xutils/actions"
-	"git.qxtv1.com/st52/xutils/files"
-	stringutil "git.qxtv1.com/st52/xutils/utils/string"
-	"git.qxtv1.com/st52/xutils/xcode"
 	"github.com/gogf/gf/g/os/glog"
+	"github.com/laoqiuChina/xutils/actions"
+	"github.com/laoqiuChina/xutils/files"
+	stringutil "github.com/laoqiuChina/xutils/utils/string"
+	"github.com/laoqiuChina/xutils/xcode"
 	"github.com/pquerna/ffjson/ffjson"
 	"io/ioutil"
 	"os"

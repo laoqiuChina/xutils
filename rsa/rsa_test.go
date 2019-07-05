@@ -1,7 +1,7 @@
 package rsa
 
 import (
-	"git.qxtv1.com/st52/xutils/xcode"
+	"github.com/laoqiuChina/xutils/xcode"
 	"testing"
 )
 

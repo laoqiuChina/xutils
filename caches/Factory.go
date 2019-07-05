@@ -1,7 +1,7 @@
 package caches
 
 import (
-	"git.qxtv1.com/st52/xutils/timers"
+	"github.com/laoqiuChina/xutils/timers"
 	"sync"
 	"time"
 )
