@@ -1,8 +1,8 @@
 package files
 
 import (
+	"git.qxtv1.com/st52/xutils/lists"
 	"strings"
-	"xutils/lists"
 )
 
 const (

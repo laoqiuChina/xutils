@@ -1,10 +1,10 @@
 package boot
 
 import (
+	"git.qxtv1.com/st52/xutils/ximg"
 	"github.com/gogf/gf/g"
 	"github.com/gogf/gf/g/net/ghttp"
 	"github.com/gogf/gf/g/os/glog"
-	"xutils/ximg"
 )
 
 func init() {

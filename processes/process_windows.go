@@ -4,9 +4,9 @@ package processes
 
 import (
 	"errors"
+	"git.qxtv1.com/st52/xutils/xcode"
 	"os"
 	"syscall"
-	"xutils/xcode"
 )
 
 type Process struct {

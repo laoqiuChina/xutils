@@ -1,9 +1,9 @@
 package caches
 
 import (
+	"git.qxtv1.com/st52/xutils/timers"
 	"sync"
 	"time"
-	"xutils/timers"
 )
 
 // 操作类型

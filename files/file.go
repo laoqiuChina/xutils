@@ -2,6 +2,8 @@ package files
 
 import (
 	"fmt"
+	stringutil "git.qxtv1.com/st52/xutils/utils/string"
+	"git.qxtv1.com/st52/xutils/xcode"
 	"github.com/gogf/gf/g/os/glog"
 	"io"
 	"io/ioutil"
@@ -9,8 +11,6 @@ import (
 	"path/filepath"
 	"sync"
 	"time"
-	stringutil "xutils/utils/string"
-	"xutils/xcode"
 )
 
 // 文件对象定义

@@ -6,8 +6,8 @@ import (
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/pem"
+	"git.qxtv1.com/st52/xutils/files"
 	"github.com/gogf/gf/g/os/glog"
-	"xutils/files"
 )
 
 type RSA struct {

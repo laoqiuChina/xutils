@@ -2,6 +2,10 @@ package sessions
 
 import (
 	"fmt"
+	"git.qxtv1.com/st52/xutils/actions"
+	"git.qxtv1.com/st52/xutils/files"
+	stringutil "git.qxtv1.com/st52/xutils/utils/string"
+	"git.qxtv1.com/st52/xutils/xcode"
 	"github.com/gogf/gf/g/os/glog"
 	"github.com/pquerna/ffjson/ffjson"
 	"io/ioutil"
@@ -9,10 +13,6 @@ import (
 	"path/filepath"
 	"sync"
 	"time"
-	"xutils/actions"
-	"xutils/files"
-	stringutil "xutils/utils/string"
-	"xutils/xcode"
 )
 
 type FileSessionManager struct {

@@ -1,8 +1,8 @@
 package rsa
 
 import (
+	"git.qxtv1.com/st52/xutils/xcode"
 	"testing"
-	"xutils/xcode"
 )
 
 func TestRSA_Encrypt(t *testing.T) {

@@ -1,8 +1,8 @@
 package xstr
 
 import (
+	"git.qxtv1.com/st52/xutils/ximg"
 	"testing"
-	"xutils/ximg"
 )
 
 func TestUrlParse(t *testing.T) {

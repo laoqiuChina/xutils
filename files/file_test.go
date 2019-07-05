@@ -1,9 +1,9 @@
 package files
 
 import (
+	"git.qxtv1.com/st52/xutils/xcode"
 	_ "syscall"
 	"testing"
-	"xutils/xcode"
 )
 
 func TestFile_Stat(t *testing.T) {

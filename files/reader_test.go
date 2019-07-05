@@ -1,8 +1,8 @@
 package files
 
 import (
+	"git.qxtv1.com/st52/xutils/xcode"
 	"testing"
-	"xutils/xcode"
 )
 
 func TestReader_ReadByte(t *testing.T) {

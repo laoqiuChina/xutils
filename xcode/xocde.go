@@ -1,12 +1,12 @@
 package xcode
 
 import (
+	stringutil "git.qxtv1.com/st52/xutils/utils/string"
 	"github.com/gogf/gf/g/os/glog"
 	"os"
 	"path/filepath"
 	"runtime"
 	"strings"
-	stringutil "xutils/utils/string"
 )
 
 const (

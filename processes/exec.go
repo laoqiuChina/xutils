@@ -1,10 +1,10 @@
 package processes
 
 import (
+	"git.qxtv1.com/st52/xutils/utils/string"
+	"git.qxtv1.com/st52/xutils/xcode"
 	"io/ioutil"
 	"os"
-	"xutils/utils/string"
-	"xutils/xcode"
 )
 
 func Exec(command string, args ...string) ([]byte, error) {
